@@ -1,18 +1,15 @@
 import cookieParser from "cookie-parser";
-
+import session from "express-session";
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const port = app.get(ConfigService).get<number>("app.port")!;
-  const origins = app
-    .get(ConfigService)
-    .get<string>("app.corsOrigins")!
-    .split(",");
+  const configService = app.get(ConfigService);
+  const port = configService.getOrThrow<number>("app.port");
+  const origins = configService.getOrThrow<string>("app.corsOrigins").split(",");
 
   app.enableCors({
     origins,
@@ -20,6 +17,13 @@ async function bootstrap() {
   });
 
   app.use(cookieParser());
+  app.use(
+    session({
+      secret: configService.getOrThrow<string>("auth.jwt.secret"),
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
 
   app.useGlobalPipes(
     new ValidationPipe({

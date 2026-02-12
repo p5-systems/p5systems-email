@@ -12,9 +12,8 @@ export const authConfig = registerAs("auth", () => ({
     issuer: process.env.OIDC_ISSUER,
     clientID: process.env.OIDC_CLIENT_ID,
     clientSecret: process.env.OIDC_CLIENT_SECRET,
-    authorizationURL:
-      process.env.OAUTH_AUTHORIZATION_URL || "http://localhost/",
-    tokenURL: process.env.OAUTH_TOKEN_URL || "http://localhost/",
-    userInfoURL: process.env.OAUTH_USER_INFO_URL || "http://localhost/",
+    authorizationURL: process.env.OAUTH_AUTHORIZATION_URL,
+    tokenURL: process.env.OAUTH_TOKEN_URL,
+    userInfoURL: process.env.OAUTH_USER_INFO_URL,
   },
 }));

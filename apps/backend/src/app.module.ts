@@ -12,11 +12,14 @@ import { AuthModule } from "./modules/auth/auth.module";
 
 import { HealthController } from "./modules/health/health.controller";
 
+import { validate } from "./config/env.validation";
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [appConfig, authConfig],
+      validate,
     }),
     TerminusModule,
     HttpModule,
@@ -25,4 +28,4 @@ import { HealthController } from "./modules/health/health.controller";
   controllers: [AppController, HealthController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
