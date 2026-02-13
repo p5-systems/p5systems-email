@@ -1,13 +1,16 @@
 {
-  "name": "@repo/eslint-config",
+  "name": "@repo/tools-config",
   "version": "0.0.0",
   "type": "module",
   "private": true,
   "exports": {
-    "./base": "./base.js",
-    "./next": "./next.js",
-    "./react": "./react.js",
-    "./nest": "./nest.js"
+    "./eslint/base": "./eslint/base.js",
+    "./eslint/next": "./eslint/next.js",
+    "./eslint/react": "./eslint/react.js",
+    "./eslint/nest": "./eslint/nest.js",
+    "./prettier/base": "./prettier/base.js",
+    "./prettier/next": "./prettier/next.js",
+    "./prettier/nest": "./prettier/nest.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
@@ -20,6 +23,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-turbo": "^2.7.1",
     "globals": "^16.0.0",
+    "prettier": "^3.8.1",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
   }

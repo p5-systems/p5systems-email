@@ -3,13 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" --ignore-unknown",
-    "start": "nest start",
     "dev": "nest start --watch",
-    "debug": "nest start --debug --watch",
-    "prod": "node dist/main",
-    "lint": "eslint \"src/**/*.ts\" --fix"
+    "build": "nest build",
+    "start": "nest start",
+    "format": "prettier --write \"src/**/*.ts\" --ignore-unknown",
+    "lint": "eslint \"src/**/*.ts\" --fix --max-warnings",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@keycloak/keycloak-admin-client": "^26.5.3",
@@ -33,7 +32,7 @@
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
+    "@repo/tools-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/cookie-parser": "^1.4.10",
     "@types/express-session": "^1.18.2",
