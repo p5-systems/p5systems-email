@@ -52,37 +52,54 @@ export class StalwartService {
     } catch (error: any) {
       if (error.response?.status === 409) {
         // Account already exists, update the secret to ensure it's in sync
-        await this.updateAccount(name, secret);
+        await this.updateAccount(name, { secrets: [secret] });
         return;
       }
       throw error;
     }
   }
 
-  async updateAccount(name: string, secret: string) {
-    console.log(`Attempting to update secret for account: ${name}`);
+  async updateAccount(name: string, updates: any) {
+    console.log(`Attempting to update account: ${name}`);
     const url = `${this.apiUrl}/api/principal/${encodeURIComponent(name)}`;
     const headers = {
       Authorization: `Basic ${this.auth}`,
       "Content-Type": "application/json",
     };
 
-    const data = {
-      secrets: [secret],
-    };
-
     try {
       await lastValueFrom(
-        this.httpService.patch(url, data, {
+        this.httpService.patch(url, updates, {
           headers,
         }),
       );
-      console.log(`Successfully updated secret for account: ${name}`);
+      console.log(`Successfully updated account: ${name}`);
     } catch (error) {
       console.error(
         `Failed to update account ${name} on Stalwart`,
         error.response?.data || error.message,
       );
+    }
+  }
+
+  async getAccount(name: string) {
+    const url = `${this.apiUrl}/api/principal/${encodeURIComponent(name)}`;
+    const headers = {
+      Authorization: `Basic ${this.auth}`,
+      "Content-Type": "application/json",
+    };
+
+    try {
+      const response = await lastValueFrom(
+        this.httpService.get(url, { headers }),
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        `Failed to fetch account ${name} from Stalwart`,
+        error.response?.data || error.message,
+      );
+      throw error;
     }
   }
 }

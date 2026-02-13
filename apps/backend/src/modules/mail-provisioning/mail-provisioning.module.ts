@@ -14,6 +14,11 @@ import { MailProvisioningService } from "./mail-provisioning.service";
     MailProvisioningService,
     CryptoService,
   ],
-  exports: [MailProvisioningService, KeycloakAdminService, CryptoService],
+  exports: [
+    MailProvisioningService,
+    KeycloakAdminService,
+    CryptoService,
+    StalwartService,
+  ],
 })
-export class MailProvisioningModule {}
+export class MailProvisioningModule { }

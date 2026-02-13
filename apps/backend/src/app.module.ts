@@ -16,6 +16,7 @@ import { validate } from "./config/env.validation";
 
 import { mailConfig } from "./config/mail.config";
 import { MailProvisioningModule } from "./modules/mail-provisioning/mail-provisioning.module";
+import { JmapModule } from "./modules/jmap/jmap.module";
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { MailProvisioningModule } from "./modules/mail-provisioning/mail-provisi
     HttpModule,
     AuthModule,
     MailProvisioningModule,
+    JmapModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService],
