@@ -10,6 +10,7 @@ import {
   UseGuards,
   Req,
 } from "@nestjs/common";
+import { Throttle } from "@nestjs/throttler";
 import { JmapService } from "./jmap.service";
 import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
 import {
@@ -23,7 +24,7 @@ import {
 @Controller("jmap")
 @UseGuards(JwtAuthGuard)
 export class JmapController {
-  constructor(private readonly jmapService: JmapService) {}
+  constructor(private readonly jmapService: JmapService) { }
 
   @Get("mailboxes")
   async getMailboxes(@Req() req: any) {
@@ -55,6 +56,7 @@ export class JmapController {
     }
   }
 
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post("send")
   async sendEmail(
     @Req() req: any,

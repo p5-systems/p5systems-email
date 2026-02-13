@@ -1,5 +1,6 @@
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import helmet from "helmet";
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -17,6 +18,8 @@ async function bootstrap() {
     origins,
     credentials: true,
   });
+
+  app.use(helmet());
 
   app.use(cookieParser());
   app.use(

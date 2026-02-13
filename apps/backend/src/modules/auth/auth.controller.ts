@@ -1,4 +1,5 @@
 import { Controller, Get, Req, UseGuards, Res } from "@nestjs/common";
+import { Throttle } from "@nestjs/throttler";
 import { OauthGuard } from "./guards/oauth.guard";
 import { AuthService } from "./auth.service";
 import type { Request, Response } from "express";
@@ -10,12 +11,14 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly mailProvisioningService: MailProvisioningService,
-  ) {}
+  ) { }
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Get("login")
   @UseGuards(OauthGuard)
-  login() {}
+  login() { }
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Get("callback")
   @UseGuards(OauthGuard)
   async callback(
