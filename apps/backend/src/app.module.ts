@@ -5,8 +5,6 @@ import { ConfigModule } from "@nestjs/config";
 import { HttpModule } from "@nestjs/axios";
 import { TerminusModule } from "@nestjs/terminus";
 
-
-
 import { appConfig } from "./config/app.config";
 import { authConfig } from "./config/auth.config";
 import { mailConfig } from "./config/mail.config";
@@ -16,6 +14,7 @@ import { AuthModule } from "./modules/auth/auth.module";
 import { EmailModule } from "./modules/email/email.module";
 import { HealthController } from "./modules/health/health.controller";
 import { IntegrationModule } from "./modules/integration/integration.module";
+import { CommonsModule } from "./commons/commons.module";
 
 @Module({
   imports: [
@@ -35,6 +34,7 @@ import { IntegrationModule } from "./modules/integration/integration.module";
         limit: 10,
       },
     ]),
+    CommonsModule,
   ],
   controllers: [HealthController],
   providers: [
@@ -44,4 +44,4 @@ import { IntegrationModule } from "./modules/integration/integration.module";
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}
