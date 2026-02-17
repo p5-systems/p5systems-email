@@ -1,12 +1,18 @@
-import { createParamDecorator, ExecutionContext } from "@nestjs/common";
-import { Request } from "express";
+import {
+  createParamDecorator,
+  ForbiddenException,
+  UnauthorizedException,
+  type ExecutionContext,
+} from "@nestjs/common";
+import type { Request } from "express";
 
 export const GetJmapSession = createParamDecorator(
   (data: unknown, context: ExecutionContext) => {
-    const user = context.switchToHttp().getRequest<Request>().user;
-    if (!user) throw new Error("No user found in request");
-    const jmap = context.switchToHttp().getRequest<Request>().jmap;
-    if (!jmap) throw new Error("No jmap session found in request");
-    return jmap;
+    const request = context.switchToHttp().getRequest<Request>();
+    if (!request.user)
+      throw new UnauthorizedException("User not authenticated");
+    if (!request.jmap)
+      throw new ForbiddenException("User does not have a JMAP session");
+    return request.jmap;
   },
 );

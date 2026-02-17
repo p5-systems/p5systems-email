@@ -60,7 +60,6 @@ export class StalwartService {
   }
 
   async updateAccount(name: string, updates: any) {
-    console.log(`Attempting to update account: ${name}`);
     const url = `${this.apiUrl}/api/principal/${encodeURIComponent(name)}`;
     const headers = {
       Authorization: `Basic ${this.auth}`,
@@ -73,7 +72,6 @@ export class StalwartService {
           headers,
         }),
       );
-      console.log(`Successfully updated account: ${name}`);
     } catch (error) {
       console.error(
         `Failed to update account ${name} on Stalwart`,

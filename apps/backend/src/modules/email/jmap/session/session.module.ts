@@ -8,6 +8,12 @@ import { CommonsModule } from "src/commons/commons.module";
 @Module({
   imports: [KeycloakModule, CommonsModule],
   providers: [SessionService, JmapSessionStore, JmapSessionGuard],
-  exports: [KeycloakModule, CommonsModule, JmapSessionGuard],
+  exports: [
+    KeycloakModule,
+    CommonsModule,
+    JmapSessionGuard,
+    SessionService,
+    JmapSessionStore,
+  ],
 })
 export class SessionModule {}
